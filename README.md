@@ -15,6 +15,7 @@
 # Promptllery | AI Prompt Curation Playground
 ![CI](https://github.com/dev-helia/Promptllery/actions/workflows/ci.yml/badge.svg)
 ![npm package](https://img.shields.io/badge/npm-promptllery-blue)
+[![codecov](https://codecov.io/gh/dev-helia/Promptllery/branch/main/graph/badge.svg)](https://codecov.io/gh/dev-helia/Promptllery)
 
 *From zero to full-stack AI product – by Helia(Hetao)*
 
