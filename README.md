@@ -10,9 +10,10 @@
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square" />
 
 </p>
-![CI](https://github.com/dev-helia/Promptllery/actions/workflows/ci.yml/badge.svg)
+
 
 # Promptllery | AI Prompt Curation Playground
+![CI](https://github.com/dev-helia/Promptllery/actions/workflows/ci.yml/badge.svg)
 
 *From zero to full-stack AI product – by Helia*
 
