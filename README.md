@@ -17,6 +17,8 @@ promptllery/
     └── index.css    ← Tailwind 样式入口
 ```
 
+---
+
 如果报错, 请
 Step 1：安装 nvm（Node Version Manager）
 
@@ -36,7 +38,7 @@ source ~/.zshrc
 
 然后关闭 Terminal，重新打开！
 
----
+
 
  Step 2：安装并使用 Node.js v20
 
