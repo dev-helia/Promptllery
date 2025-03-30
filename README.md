@@ -1,14 +1,16 @@
-# Promptllery | AI Prompt Curation Playground
 
 <p align="center">
-  🌟 A full-stack React + Supabase playground for Prompt Engineers 🌟  
+  <img alt="Promptllery Logo" src="https://img.shields.io/badge/Promptllery-AI%20Prompt%20Playground-red?style=flat-square&logo=OpenAI" />
   <br/>
-  <img src="https://img.shields.io/github/license/dev-helia/promptllery?style=flat-square" />
-  <img src="https://img.shields.io/badge/react-18.x-blue?logo=react&style=flat-square" />
-  <img src="https://img.shields.io/badge/tailwindcss-3.x-blueviolet?logo=tailwindcss&style=flat-square" />
-  <img src="https://img.shields.io/badge/supabase-%E2%9C%85-green?logo=supabase&style=flat-square" />
+  <img src="https://img.shields.io/github/license/dev-helia/Promptllery?style=flat-square" />
+  <img src="https://img.shields.io/github/stars/dev-helia/Promptllery?style=flat-square" />
+  <img src="https://img.shields.io/github/issues/dev-helia/Promptllery?style=flat-square" />
+  <img src="https://img.shields.io/github/actions/workflow/status/dev-helia/Promptllery/ci.yml?label=GitHub%20Actions&logo=github&style=flat-square" />
+  <img src="https://img.shields.io/vercel/deploy-status?label=Vercel&logo=vercel&style=flat-square" />
+  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square" />
 </p>
 
+# Promptllery | AI Prompt Curation Playground
 
 *From zero to full-stack AI product – by Helia*
 
