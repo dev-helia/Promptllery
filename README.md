@@ -1,3 +1,12 @@
+<p align="center">
+  <img src="https://img.shields.io/github/license/helia-hetao/promptllery?style=flat-square" />
+  <img src="https://img.shields.io/badge/react-18.x-blue?logo=react&style=flat-square" />
+  <img src="https://img.shields.io/badge/tailwindcss-3.x-blueviolet?logo=tailwindcss&style=flat-square" />
+  <img src="https://img.shields.io/badge/supabase-%E2%9C%85-green?logo=supabase&style=flat-square" />
+  <img src="https://img.shields.io/github/issues/helia-hetao/promptllery?style=flat-square" />
+  <img src="https://img.shields.io/github/stars/helia-hetao/promptllery?style=flat-square" />
+  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square" />
+</p>
 
 # Promptllery | Curated Playground for Prompt Engineers  
 *From zero to full-stack AI product – by Helia*
