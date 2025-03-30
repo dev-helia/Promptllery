@@ -111,16 +111,16 @@ promptllery/
 
 ```
 ┌────────────────────────────┐
-│ ✨ Title: Sci-Fi Story Prompt │
-│ 📄 Prompt: Write a touching   │
+│ Title: Sci-Fi Story Prompt │
+│ Prompt: Write a touching   │
 │    sci-fi suspense story...   │
-│ 🏷️ Tag: creative | literature │
+│ Tag: creative | literature │
 └────────────────────────────┘
 ```
 
 ---
 
-## 📜 License
+## License
 
 MIT License © 2025-present by Helia
 
