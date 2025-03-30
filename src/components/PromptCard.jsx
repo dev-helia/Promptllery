@@ -10,6 +10,7 @@ function PromptCard({
   isFavorited,
   onToggleFavorite,
   likeCount,
+  onLike, // ✅ 你漏接了它
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -36,18 +37,28 @@ function PromptCard({
 
       <div className="mt-4 flex justify-between items-center">
         <div className="flex items-center gap-4">
-<button
-  onClick={onToggleFavorite}
-  className={`text-xl transition ${
-    isFavorited ? "text-pink-500" : "text-gray-300 hover:text-pink-400"
-  }`}
->
-  {isFavorited ? "❤️" : "🤍"}  {isFavorited ? "已收藏" : "收藏"}
-</button>
+          {/* ❤️ 收藏按钮 */}
+          <button
+            onClick={onToggleFavorite}
+            className={`text-xl transition ${
+              isFavorited
+                ? "text-pink-500"
+                : "text-gray-300 hover:text-pink-400"
+            }`}
+          >
+            {isFavorited ? "❤️" : "🤍"} {isFavorited ? "已收藏" : "收藏"}
+          </button>
 
-          <span className="text-sm text-gray-500">👍 {likeCount}</span>
+          {/* 👍 点赞按钮 */}
+          <button
+            onClick={onLike}
+            className="text-gray-500 text-sm hover:text-blue-500 transition"
+          >
+            👍 {likeCount}
+          </button>
         </div>
 
+        {/* 📋 复制按钮 */}
         <button
           onClick={handleCopy}
           className="text-sm text-purple-600 hover:underline"

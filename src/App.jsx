@@ -1,8 +1,12 @@
-import { useState } from "react";
-import PromptCard from "./components/PromptCard";
+import { useState, useEffect } from "react";
+import { Routes, Route, Link } from "react-router-dom";
+import HomePage from "./HomePage";
+import RegisterPage from "./components/RegisterPage";
+import Logo from "./components/Logo";
+import LoginPage from "./components/LoginPage";
 
 function App() {
-  const prompts = [
+  const [prompts, setPrompts] = useState([
     {
       title: "写一段关于失恋的诗",
       prompt: "请帮我写一段以星星为意象的失恋诗，感性一点",
@@ -21,22 +25,39 @@ function App() {
       tag: "数据分析 | ChatGPT",
       likeCount: 1,
     },
-  ];
+  ]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTag, setSelectedTag] = useState("全部");
   const [favoritedIndexes, setFavoritedIndexes] = useState([]);
+  const [likedIndexes, setLikedIndexes] = useState([]);
+  const [likes, setLikes] = useState(prompts.map((p) => p.likeCount || 0));
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
+  const [username, setUsername] = useState(""); // 新增用户名状态
 
-  const allTags = [
-    "全部",
-    ...new Set(
-      prompts
-        .map((item) => item.tag.split("|"))
-        .flat()
-        .map((tag) => tag.trim())
-    ),
-  ];
+  // ✅ 加载本地数据
+  useEffect(() => {
+    const savedPrompts = JSON.parse(localStorage.getItem("prompts"));
+    const savedLikes = JSON.parse(localStorage.getItem("likes"));
+    const savedFavorites = JSON.parse(localStorage.getItem("favorites"));
+
+    if (savedPrompts) setPrompts(savedPrompts);
+    if (savedLikes) setLikes(savedLikes);
+    if (savedFavorites) setFavoritedIndexes(savedFavorites);
+  }, []);
+
+  // ✅ 持久化到本地
+  useEffect(() => {
+    localStorage.setItem("prompts", JSON.stringify(prompts));
+  }, [prompts]);
+
+  useEffect(() => {
+    localStorage.setItem("likes", JSON.stringify(likes));
+  }, [likes]);
+
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favoritedIndexes));
+  }, [favoritedIndexes]);
 
   const toggleFavorite = (index) => {
     setFavoritedIndexes((prev) =>
@@ -44,79 +65,60 @@ function App() {
     );
   };
 
-  const filteredPrompts = prompts.filter((item, index) => {
-    const matchSearch =
-      item.prompt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.tag.toLowerCase().includes(searchTerm.toLowerCase());
+  const toggleLike = (index) => {
+    if (likedIndexes.includes(index)) return;
+    const newLikes = [...likes];
+    newLikes[index] += 1;
+    setLikes(newLikes);
+    setLikedIndexes([...likedIndexes, index]);
+  };
 
-    const matchTag = selectedTag === "全部" || item.tag.includes(selectedTag);
-    const matchFavorite =
-      !showOnlyFavorites || favoritedIndexes.includes(index);
-
-    return matchSearch && matchTag && matchFavorite;
-  });
+  const handleUpload = (newPrompt) => {
+    setPrompts((prev) => [...prev, { ...newPrompt, likeCount: 0 }]);
+    setLikes((prev) => [...prev, 0]);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 p-10">
-      <h1 className="text-3xl font-bold mb-6">🎯 Promptllery</h1>
+      <nav className="mb-6 flex gap-4">
+        <Logo />
+        <Link to="/" className="text-purple-600 hover:underline">
+          首页
+        </Link>
+        <Link to="/login" className="text-purple-600 hover:underline">
+          登录
+        </Link>
 
-      <input
-        type="text"
-        placeholder="🔍 搜索提示词/内容/标签..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full p-3 border border-gray-300 rounded-xl mb-4 focus:outline-none focus:ring-2 focus:ring-purple-400"
-      />
+        <Link to="/register" className="text-purple-600 hover:underline">
+          注册
+        </Link>
+      </nav>
 
-      <div className="flex flex-wrap gap-2 mb-4">
-        {allTags.map((tag, index) => (
-          <button
-            key={index}
-            onClick={() => setSelectedTag(tag)}
-            className={`px-3 py-1 rounded-full border ${
-              selectedTag === tag
-                ? "bg-purple-600 text-white"
-                : "bg-white text-purple-600 border-purple-300"
-            } hover:bg-purple-100 transition`}
-          >
-            {tag}
-          </button>
-        ))}
-
-        <button
-          onClick={() => setShowOnlyFavorites((prev) => !prev)}
-          className={`px-3 py-1 rounded-full border ml-auto ${
-            showOnlyFavorites
-              ? "bg-pink-600 text-white"
-              : "bg-white text-pink-600 border-pink-300"
-          } hover:bg-pink-100 transition`}
-        >
-          {showOnlyFavorites ? "💖 只看收藏" : "🤍 全部展示"}
-        </button>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredPrompts.map((item, index) => (
-          <PromptCard
-            key={index}
-            title={item.title}
-            prompt={item.prompt}
-            tag={item.tag}
-            likeCount={likeCounts[index] || 0} // 传递每个 Prompt 的点赞数
-            onTagClick={setSelectedTag}
-            onCopy={() => alert("已复制 Prompt！")}
-            isFavorited={favoritedIndexes.includes(index)}
-            onToggleFavorite={() => toggleFavorite(index)}
-          />
-        ))}
-      </div>
-
-      {filteredPrompts.length === 0 && (
-        <p className="text-gray-400 mt-6 text-center text-sm">
-          🙈 没有找到符合条件的 Prompt 哦～换个关键词试试吧！
-        </p>
-      )}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <HomePage
+              prompts={prompts}
+              username={username}
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              selectedTag={selectedTag}
+              setSelectedTag={setSelectedTag}
+              favoritedIndexes={favoritedIndexes}
+              toggleFavorite={toggleFavorite}
+              showOnlyFavorites={showOnlyFavorites}
+              setShowOnlyFavorites={setShowOnlyFavorites}
+              likes={likes}
+              likedIndexes={likedIndexes}
+              toggleLike={toggleLike}
+              handleUpload={handleUpload}
+            />
+          }
+        />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />;
+      </Routes>
     </div>
   );
 }
