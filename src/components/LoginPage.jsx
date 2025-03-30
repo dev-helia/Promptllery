@@ -1,52 +1,51 @@
-// src/components/LoginPage.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function LoginPage() {
+function LoginPage({ setUsername }) {
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // 用来跳转
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (!nickname || !password) {
-      alert("请输入昵称和密码！");
-      return;
-    }
-    // 假登录：将昵称保存到 localStorage
-    localStorage.setItem("nickname", nickname);
-    navigate("/");
+
+    if (!nickname) return alert("请输入昵称");
+
+    setUsername(nickname); // ✅ 设置用户名
+    navigate("/"); // ✅ 跳转到首页
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-purple-50">
+    <div className="flex justify-center items-center min-h-screen bg-purple-50">
       <form
         onSubmit={handleLogin}
-        className="bg-white p-10 rounded-2xl shadow-xl w-full max-w-sm"
+        className="bg-white p-8 rounded-xl shadow-md w-80"
       >
-        <h2 className="text-2xl font-bold text-center text-purple-600 mb-6">
+        <h2 className="text-xl font-bold text-purple-600 mb-4 text-center">
           🔐 登录你的账号
         </h2>
 
-        <label className="block text-sm mb-1">昵称</label>
+        <label className="text-sm block mb-1">昵称</label>
         <input
           type="text"
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
-          className="w-full p-3 mb-4 border border-gray-300 rounded-xl"
+          className="w-full p-2 border rounded mb-4 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          required
         />
 
-        <label className="block text-sm mb-1">密码</label>
+        <label className="text-sm block mb-1">密码</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-3 mb-6 border border-gray-300 rounded-xl"
+          className="w-full p-2 border rounded mb-6 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          required
         />
 
         <button
           type="submit"
-          className="w-full bg-purple-600 text-white py-3 rounded-xl hover:bg-purple-700 transition"
+          className="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition"
         >
           登录
         </button>

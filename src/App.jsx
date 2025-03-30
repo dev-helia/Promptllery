@@ -2,51 +2,48 @@ import { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import HomePage from "./HomePage";
 import RegisterPage from "./components/RegisterPage";
-import Logo from "./components/Logo";
 import LoginPage from "./components/LoginPage";
+import Logo from "./components/Logo";
+import PromptDetailPage from "./components/PromptDetailPage";
+import promptsData from "./data/prompts.json";
+import JsonViewer from "./components/JsonViewer";
+import RankingPage from "./components/RankingPage";
 
 function App() {
-  const [prompts, setPrompts] = useState([
-    {
-      title: "写一段关于失恋的诗",
-      prompt: "请帮我写一段以星星为意象的失恋诗，感性一点",
-      tag: "GPT-4 | 文学",
-      likeCount: 3,
-    },
-    {
-      title: "生成商业计划书",
-      prompt: "我想开一家宠物咖啡馆，帮我写一份商业计划书",
-      tag: "Business | GPT-4",
-      likeCount: 5,
-    },
-    {
-      title: "用户画像分析",
-      prompt: "根据以下社交数据，推测用户性格特点和偏好...",
-      tag: "数据分析 | ChatGPT",
-      likeCount: 1,
-    },
-  ]);
-
+  const [prompts, setPrompts] = useState([]); // ✅ 先定义 prompts
+  const [likes, setLikes] = useState([]); // ✅ likes 初始为空数组
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTag, setSelectedTag] = useState("全部");
   const [favoritedIndexes, setFavoritedIndexes] = useState([]);
   const [likedIndexes, setLikedIndexes] = useState([]);
-  const [likes, setLikes] = useState(prompts.map((p) => p.likeCount || 0));
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
-  const [username, setUsername] = useState(""); // 新增用户名状态
+  const [username, setUsername] = useState(""); // ✅ 记录当前登录的用户名
 
-  // ✅ 加载本地数据
+  // ✅ 初始化加载数据（从本地或 JSON）
   useEffect(() => {
-    const savedPrompts = JSON.parse(localStorage.getItem("prompts"));
-    const savedLikes = JSON.parse(localStorage.getItem("likes"));
-    const savedFavorites = JSON.parse(localStorage.getItem("favorites"));
-
-    if (savedPrompts) setPrompts(savedPrompts);
-    if (savedLikes) setLikes(savedLikes);
-    if (savedFavorites) setFavoritedIndexes(savedFavorites);
+    const savedPrompts = localStorage.getItem("prompts");
+    if (savedPrompts) {
+      const parsed = JSON.parse(savedPrompts);
+      setPrompts(parsed);
+      setLikes(parsed.map((p) => p.likeCount || 0));
+    } else {
+      setPrompts(promptsData);
+      setLikes(promptsData.map((p) => p.likeCount || 0));
+    }
   }, []);
 
-  // ✅ 持久化到本地
+  // ✅ 读取其他本地存储（用户、点赞、收藏）
+  useEffect(() => {
+    const savedLikes = JSON.parse(localStorage.getItem("likes"));
+    const savedFavorites = JSON.parse(localStorage.getItem("favorites"));
+    const savedUser = localStorage.getItem("username");
+
+    if (savedLikes) setLikes(savedLikes);
+    if (savedFavorites) setFavoritedIndexes(savedFavorites);
+    if (savedUser) setUsername(savedUser);
+  }, []);
+
+  // ✅ 保存逻辑
   useEffect(() => {
     localStorage.setItem("prompts", JSON.stringify(prompts));
   }, [prompts]);
@@ -59,12 +56,11 @@ function App() {
     localStorage.setItem("favorites", JSON.stringify(favoritedIndexes));
   }, [favoritedIndexes]);
 
-  const toggleFavorite = (index) => {
-    setFavoritedIndexes((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    );
-  };
+  useEffect(() => {
+    localStorage.setItem("username", username);
+  }, [username]);
 
+  // ✅ 点赞逻辑
   const toggleLike = (index) => {
     if (likedIndexes.includes(index)) return;
     const newLikes = [...likes];
@@ -73,25 +69,50 @@ function App() {
     setLikedIndexes([...likedIndexes, index]);
   };
 
+  // ✅ 收藏逻辑
+  const toggleFavorite = (index) => {
+    setFavoritedIndexes((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+    );
+  };
+
+  // ✅ 上传 prompt
   const handleUpload = (newPrompt) => {
-    setPrompts((prev) => [...prev, { ...newPrompt, likeCount: 0 }]);
+    const timestamped = { ...newPrompt, createdAt: Date.now(), likeCount: 0 };
+    setPrompts((prev) => [...prev, timestamped]);
     setLikes((prev) => [...prev, 0]);
   };
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 p-10">
-      <nav className="mb-6 flex gap-4">
+      <nav className="mb-6 flex gap-4 items-center">
         <Logo />
         <Link to="/" className="text-purple-600 hover:underline">
           首页
         </Link>
+        <Link to="/ranking" className="text-purple-600 hover:underline">
+          排行榜
+        </Link>
+
         <Link to="/login" className="text-purple-600 hover:underline">
           登录
         </Link>
-
         <Link to="/register" className="text-purple-600 hover:underline">
           注册
         </Link>
+        {username ? (
+          <div className="ml-auto flex flex-col items-end text-sm text-gray-500">
+            <span>🎉 欢迎 {username}</span>
+            <button
+              onClick={() => setUsername("")}
+              className="text-red-500 hover:underline text-xs mt-1"
+            >
+              登出
+            </button>
+          </div>
+        ) : (
+          <span className="ml-auto text-sm text-gray-400">未登录</span>
+        )}
       </nav>
 
       <Routes>
@@ -116,8 +137,17 @@ function App() {
             />
           }
         />
+        <Route
+          path="/login"
+          element={<LoginPage setUsername={setUsername} />}
+        />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />;
+        <Route path="/prompt/:id" element={<PromptDetailPage />} />
+        <Route path="/prompt/:id/json" element={<JsonViewer />} />
+        <Route
+          path="/ranking"
+          element={<RankingPage prompts={prompts} likes={likes} />}
+        />
       </Routes>
     </div>
   );
