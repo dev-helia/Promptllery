@@ -1,6 +1,23 @@
 {
-  "name": "promptllery-ready",
-  "version": "1.0.0",
+  "name": "promptllery",
+  "version": "0.1.0",
+  "description": "A curated AI prompt playground powered by React + Supabase + OpenAI",
+  "author": "Helia(Hetao) <hetaoo.c@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "prompt",
+    "openai",
+    "chatgpt",
+    "supabase",
+    "playground",
+    "react",
+    "tailwind"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dev-helia/Promptllery.git"
+  },
+  "homepage": "https://promptllery.vercel.app",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
