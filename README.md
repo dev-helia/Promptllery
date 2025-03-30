@@ -84,25 +84,29 @@ nvm use 20
 
 ```
 promptllery/
-├── public/
+├── public/                      # Public assets (logo, favicon, etc.)
+│
 ├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── pages/
-│   ├── hooks/
-│   ├── lib/
-│   ├── data/
-│   ├── styles/
+│   ├── assets/                 # Images, fonts, shared resources
+│   ├── components/            # Reusable UI components (PromptCard, Button, Modal)
+│   ├── pages/                 # Page components (HomePage, LoginPage, etc.)
+│   ├── hooks/                 # Custom React hooks (e.g., useSupabasePrompts)
+│   ├── lib/                   # Utility files and configuration (supabaseClient, api setup)
+│   ├── data/                  # Static data (e.g., prompt mock data)
+│   ├── styles/                # Tailwind CSS and global styles
 │   │   └── index.css
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── router.jsx
-├── index.html
-├── .env.local
-├── package.json
-├── tailwind.config.js
-├── postcss.config.js
-├── vite.config.js
+│   ├── App.jsx                # Main application component
+│   ├── main.jsx               # React app entry point
+│   └── router.jsx             # Extracted routing logic
+│
+├── .env.local                 # Environment variables
+├── .gitignore                 # Git ignore file
+├── index.html                 # App HTML entry
+├── package.json               # Project dependencies and scripts
+├── tailwind.config.js         # Tailwind configuration
+├── postcss.config.js          # PostCSS plugins
+├── vite.config.js             # Vite configuration
+
 ```
 
 ---
