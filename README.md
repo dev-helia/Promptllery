@@ -15,7 +15,7 @@
 # Promptllery | AI Prompt Curation Playground
 ![CI](https://github.com/dev-helia/Promptllery/actions/workflows/ci.yml/badge.svg)
 
-*From zero to full-stack AI product – by Helia*
+*From zero to full-stack AI product – by Helia(Hetao)*
 
 Chinese version: [点击这里查看中文文档 →](./README.zh.md)
 
