@@ -115,16 +115,29 @@ npm -v    # 通常是 v10+
 
 ```
 promptllery/
+├── public/                      # 公共资源（logo、icon）
+│
+├── src/
+│   ├── assets/                 # 图片、字体、通用资源
+│   ├── components/            # 通用 UI 组件（如 PromptCard、Button、Modal）
+│   ├── pages/                 # 页面组件（如 HomePage, LoginPage）
+│   ├── hooks/                 # 自定义 hooks（如 useSupabasePrompts）
+│   ├── lib/                   # 工具类 / 配置（supabaseClient、api 封装等）
+│   ├── data/                  # 静态数据(test)
+│   ├── styles/                # 样式相关（Tailwind、index.css）
+│   │   └── index.css
+│   ├── App.jsx                # 主组件
+│   ├── main.jsx               # 应用入口
+│   └── router.jsx             # 路由单独抽出
+│
+├── .env.local
+├── .gitignore
 ├── index.html
 ├── package.json
 ├── tailwind.config.js
-├── public/
-└── src/
-    ├── components/
-    │   └── PromptCard.jsx   ← 卡片组件
-    ├── App.jsx              ← 主页面逻辑
-    ├── main.jsx
-    └── index.css            ← Tailwind 样式入口
+├── postcss.config.js
+├── vite.config.js
+
 ```
 
 ---
