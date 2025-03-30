@@ -12,10 +12,10 @@
 
 ### 技术栈 | Tech Stack
 
-- **前端 
-- **后端 
-- **AI 接口  
-- **部署 
+- 前端 React + TailwindCSS + Vite  
+- 后端 Supabase (Database + Auth)
+- AI 接口  OpenAI Completion API  
+- 部署 Netlify / Vercel
 
 ---
 
