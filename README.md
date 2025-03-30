@@ -13,7 +13,7 @@ Tailwind CSS + React + Vite
 部署:Netlify / Vercel
 
 项目介绍:从 0 做出来的 Prompt 内容策展 Demo 网站。它前端由 React + Tailwind 实现，支持本地上传、搜索、收藏、点赞、注册功能。独立开发 Prompt 内容策展平台，支持分类浏览、高质量 prompt 测试、OpenAI API 连接与安全调用，提升 AI 工程使用体验。
-未来我将继续拓展用户系统与后端存储，并开放开源供更多人使用。
+未来我将继续拓展用户系统与后端存储，并开放开源供更多人使用。部署 API（用 Supabase 或 Vercel Serverless Function），以后再接 AI、推荐算法、评论系统都方便
 
 项目灵感： 仿照「神算」诊断站玩法，用前端产品形式呈现「Prompt 工程内容策展」的理念，适合作为开源项目 + 技术写作主题。
 
@@ -91,6 +91,15 @@ npm run dev
 6. ✅ 模型选择滑块组件（ModelSelector）-> 未来可适配多种模型
 
 ---
+
+全栈功能: 链接后端, 使用supabase
+
+1. ✅  数据库存储 Prompt、用户、点赞等
+2. ✅ 用 API 替代 `localStorage`，用 `fetch` 读写数据
+3. ✅ 登录使用第三方（GitHub / Magic Link）认证
+4. ✅ 所有点赞、收藏、上传等都变成真正后端数据操作
+
+
 最终demo展示
 
 ---
