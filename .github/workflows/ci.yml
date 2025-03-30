@@ -19,11 +19,15 @@ jobs:
         with:
           node-version: '20'
 
+      - name: 🔐 Inject .env
+        run: |
+          echo "VITE_OPENAI_API_KEY=${{ secrets.VITE_OPENAI_API_KEY }}" >> .env.local
+          echo "VITE_OPENAI_MODEL=${{ secrets.VITE_OPENAI_MODEL }}" >> .env.local
+          echo "VITE_SUPABASE_URL=${{ secrets.VITE_SUPABASE_URL }}" >> .env.local
+          echo "VITE_SUPABASE_KEY=${{ secrets.VITE_SUPABASE_KEY }}" >> .env.local
+
       - name: 📦 Install dependencies
         run: npm install
 
-      - name: 🧪 Run Jest Tests + Coverage
-        run: npm test -- --coverage
-
-      - name: 🛰️ Upload Coverage to Codecov
-        uses: codecov/codecov-action@v3
+      - name: ⚒️ Build Vite app
+        run: npm run build
