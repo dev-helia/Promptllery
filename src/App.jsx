@@ -5,34 +5,35 @@ import RegisterPage from "./components/RegisterPage";
 import LoginPage from "./components/LoginPage";
 import Logo from "./components/Logo";
 import PromptDetailPage from "./components/PromptDetailPage";
-import promptsData from "./data/prompts.json";
 import JsonViewer from "./components/JsonViewer";
 import RankingPage from "./components/RankingPage";
+import useSupabasePrompts from "./hooks/useSupabasePrompts";
+import usePromptActions from "./hooks/usePromptActions";
 
 function App() {
-  const [prompts, setPrompts] = useState([]); // ✅ 先定义 prompts
-  const [likes, setLikes] = useState([]); // ✅ likes 初始为空数组
+  const [username, setUsername] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTag, setSelectedTag] = useState("全部");
-  const [favoritedIndexes, setFavoritedIndexes] = useState([]);
-  const [likedIndexes, setLikedIndexes] = useState([]);
+
+  const [showOnlyMine, setShowOnlyMine] = useState(false);
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
-  const [username, setUsername] = useState(""); // ✅ 记录当前登录的用户名
 
-  // ✅ 初始化加载数据（从本地或 JSON）
-  useEffect(() => {
-    const savedPrompts = localStorage.getItem("prompts");
-    if (savedPrompts) {
-      const parsed = JSON.parse(savedPrompts);
-      setPrompts(parsed);
-      setLikes(parsed.map((p) => p.likeCount || 0));
-    } else {
-      setPrompts(promptsData);
-      setLikes(promptsData.map((p) => p.likeCount || 0));
-    }
-  }, []);
+  const {
+    prompts,
+    setPrompts,
+    likes,
+    setLikes,
+    favoritedIndexes,
+    setFavoritedIndexes,
+  } = useSupabasePrompts(username);
 
-  // ✅ 读取其他本地存储（用户、点赞、收藏）
+  const { likedIndexes, toggleLike, toggleFavorite } = usePromptActions({
+    prompts,
+    username,
+    setLikes,
+    setFavoritedIndexes,
+  });
+
   useEffect(() => {
     const savedLikes = JSON.parse(localStorage.getItem("likes"));
     const savedFavorites = JSON.parse(localStorage.getItem("favorites"));
@@ -43,7 +44,6 @@ function App() {
     if (savedUser) setUsername(savedUser);
   }, []);
 
-  // ✅ 保存逻辑
   useEffect(() => {
     localStorage.setItem("prompts", JSON.stringify(prompts));
   }, [prompts]);
@@ -59,30 +59,43 @@ function App() {
   useEffect(() => {
     localStorage.setItem("username", username);
   }, [username]);
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      if (data.user) {
+        setUsername(data.user.email);
+      }
+    };
+    getUser();
+  }, []);
 
-  // ✅ 点赞逻辑
-  const toggleLike = (index) => {
-    if (likedIndexes.includes(index)) return;
-    const newLikes = [...likes];
-    newLikes[index] += 1;
-    setLikes(newLikes);
-    setLikedIndexes([...likedIndexes, index]);
+  const handleUpload = async (newPrompt) => {
+    const { title, content, tags } = newPrompt;
+
+    const { error } = await supabase.from("prompts").insert([
+      {
+        title,
+        content,
+        tags,
+        like_count: 0,
+        user_email: username, // 👈 加上用户邮箱
+      },
+    ]);
+
+    if (!error) {
+      console.log("✅ 上传成功！");
+      const { data } = await supabase
+        .from("prompts")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (data) {
+        setPrompts(data);
+        setLikes(data.map((p) => p.like_count || 0));
+      }
+    } else {
+      console.error("❌ 上传失败：", error.message);
+    }
   };
-
-  // ✅ 收藏逻辑
-  const toggleFavorite = (index) => {
-    setFavoritedIndexes((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    );
-  };
-
-  // ✅ 上传 prompt
-  const handleUpload = (newPrompt) => {
-    const timestamped = { ...newPrompt, createdAt: Date.now(), likeCount: 0 };
-    setPrompts((prev) => [...prev, timestamped]);
-    setLikes((prev) => [...prev, 0]);
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 p-10">
       <nav className="mb-6 flex gap-4 items-center">
@@ -93,7 +106,6 @@ function App() {
         <Link to="/ranking" className="text-purple-600 hover:underline">
           排行榜
         </Link>
-
         <Link to="/login" className="text-purple-600 hover:underline">
           登录
         </Link>
@@ -104,7 +116,11 @@ function App() {
           <div className="ml-auto flex flex-col items-end text-sm text-gray-500">
             <span>🎉 欢迎 {username}</span>
             <button
-              onClick={() => setUsername("")}
+              onClick={async () => {
+                await supabase.auth.signOut();
+                setUsername("");
+                localStorage.removeItem("username");
+              }}
               className="text-red-500 hover:underline text-xs mt-1"
             >
               登出
@@ -127,13 +143,15 @@ function App() {
               selectedTag={selectedTag}
               setSelectedTag={setSelectedTag}
               favoritedIndexes={favoritedIndexes}
-              toggleFavorite={toggleFavorite}
+              toggleFavorite={(i) => toggleFavorite(i, favoritedIndexes)}
               showOnlyFavorites={showOnlyFavorites}
               setShowOnlyFavorites={setShowOnlyFavorites}
               likes={likes}
               likedIndexes={likedIndexes}
-              toggleLike={toggleLike}
+              toggleLike={(i) => toggleLike(i, likes)}
               handleUpload={handleUpload}
+              showOnlyMine={showOnlyMine}
+              setShowOnlyMine={setShowOnlyMine}
             />
           }
         />

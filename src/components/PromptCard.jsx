@@ -32,6 +32,7 @@ function PromptCard({
           <h2 className="text-lg font-semibold mb-2 text-purple-700">
             {title}
           </h2>
+
           <p className="text-sm text-gray-700 whitespace-pre-line line-clamp-4">
             {prompt}
           </p>

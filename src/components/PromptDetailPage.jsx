@@ -58,6 +58,7 @@ function PromptDetailPage() {
         <div className="text-gray-700 whitespace-pre-wrap bg-gray-50 p-4 rounded-xl border">
           {prompt.prompt}
         </div>
+
         <button
           onClick={() => {
             navigator.clipboard.writeText(prompt.prompt);
