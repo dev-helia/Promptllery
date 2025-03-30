@@ -6,7 +6,7 @@ Chinese version: [点击这里查看中文文档 →](./README.zh.md)
 It supports uploading, searching, liking, bookmarking, testing prompts, and managing user-authenticated content.  
 This project aims to grow into an open-source AI product prototype.
 
->Inspired by 神算乐园, Promptllery is designed to showcase and organize >high-quality and interesting prompts in a usable, interactive way — combining prompt engineering with front-end >product thinking.
+>Inspired by 神算乐园, Promptllery is designed to showcase and organize high-quality and interesting prompts in a usable, interactive way — combining prompt engineering with front-end product thinking.
 
 ---
 
