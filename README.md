@@ -143,5 +143,5 @@ promptllery/
 
 ## License
 
-MIT License © 2025-present by Helia
+MIT License © 2025-present by He Tao
 
