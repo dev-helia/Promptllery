@@ -22,9 +22,8 @@ jobs:
       - name: 📦 Install dependencies
         run: npm install
 
-      - name: 🔧 Lint + Type Check (可选)
-        run: |
-          echo "你可以在这里添加 eslint / type check"
+      - name: 🧪 Run Jest Tests + Coverage
+        run: npm test -- --coverage
 
-      - name: ⚒️ Run Vite build
-        run: npm run build
+      - name: 🛰️ Upload Coverage to Codecov
+        uses: codecov/codecov-action@v3
