@@ -1,8 +1,13 @@
 PromptBase + ChatGPT Playground
+
 Tailwind CSS + React + Vite
+
 部署:Netlify / Vercel
-项目介绍:从 0 做出来的 Prompt 内容策展 Demo 网站。它前端由 React + Tailwind 实现，支持本地上传、搜索、收藏、点赞、注册功能。未来我将继续拓展用户系统与后端存储，并开放开源供更多人使用。
- 项目灵感： 仿照「神算」诊断站玩法，用前端产品形式呈现「Prompt 工程内容策展」的理念，适合作为开源项目 + 技术写作主题。
+
+项目介绍:从 0 做出来的 Prompt 内容策展 Demo 网站。它前端由 React + Tailwind 实现，支持本地上传、搜索、收藏、点赞、注册功能。独立开发 Prompt 内容策展平台，支持分类浏览、高质量 prompt 测试、OpenAI API 连接与安全调用，提升 AI 工程使用体验。
+未来我将继续拓展用户系统与后端存储，并开放开源供更多人使用。
+
+项目灵感： 仿照「神算」诊断站玩法，用前端产品形式呈现「Prompt 工程内容策展」的理念，适合作为开源项目 + 技术写作主题。
 ```
 promptllery/
 ├── index.html
