@@ -76,7 +76,7 @@ npm run dev
     
 5. ✅ 请求 OpenAI 接口并显示回复
     
-6. ✅ 最终的「Prompt 在线测试平台」🌟
+6. ✅ 模型选择滑块组件（ModelSelector）-> 未来可适配多种模型
 
 ---
 最终demo展示
