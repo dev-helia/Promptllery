@@ -98,6 +98,4 @@ npm -v    # 一般会是 v10+
 ```
 code ~/.zshrc
 ```
----
 
-License
