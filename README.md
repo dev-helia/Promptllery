@@ -99,9 +99,6 @@ npm run dev
 3. ✅ 收藏功能写入数据库（新建 favorites 表）
 4. ✅ 登录系统接入 Supabase Auth（邮箱/密码）
 5. ✅ Prompt 按用户名归属（和用户绑定）, 实现“我的作品”筛选功能
-6. ✅ 登录使用第三方（GitHub / Magic Link）认证
-
-7. ✅ RLS 策略 & 安全性
 
 ---
 
