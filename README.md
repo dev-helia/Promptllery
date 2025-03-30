@@ -99,6 +99,7 @@ npm run dev
 3. ✅ 登录使用第三方（GitHub / Magic Link）认证
 4. ✅ 所有点赞、收藏、上传等都变成真正后端数据操作
 
+---
 
 最终demo展示
 
