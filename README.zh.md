@@ -106,7 +106,7 @@ npm -v    # 通常是 v10+
 ---
 
 ## 目录结构 
-
+```
 promptllery/
 ├── public/                      # 公共资源（logo、icon）
 │
@@ -130,19 +130,19 @@ promptllery/
 ├── tailwind.config.js
 ├── postcss.config.js
 ├── vite.config.js
-
+```
 
 ---
 
 ## 示例卡片样式 
-
+```
 ┌────────────────────────────┐
 │ Title: 写故事的提示词        │
 │ Prompt: 给我写一个感人至深的 │
 │    科幻悬疑故事…               │
 │ Tag: 创意 | 文学 | GPT-4     │
 └────────────────────────────┘
-
+```
 
 ---
 
