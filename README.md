@@ -94,10 +94,12 @@ npm run dev
 
 全栈功能: 链接后端, 使用supabase
 
-1. ✅  数据库存储 Prompt、用户、点赞等
+1. ✅ 数据库存储 Prompt、用户、点赞等
 2. ✅ 用 API 替代 `localStorage`，用 `fetch` 读写数据
-3. ✅ 登录使用第三方（GitHub / Magic Link）认证
-4. ✅ 所有点赞、收藏、上传等都变成真正后端数据操作
+3. ✅ 用户系统（auth）
+4. ✅ 登录使用第三方（GitHub / Magic Link）认证
+5. ✅ 所有点赞、收藏、上传等都变成真正后端数据操作
+6. ✅ RLS 策略 & 安全性
 
 ---
 
