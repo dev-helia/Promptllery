@@ -63,7 +63,7 @@ npm run dev
 ---
   
 
-高级功能: 接入 OpenAI 接口 + Prompt 测试界面 (涉及KEY, 不上传 GitHub)
+核心功能: 接入 OpenAI 接口 + Prompt 测试界面 (涉及KEY, 请勿将自己的密钥上传 GitHub)
 
 
 1. ✅ 创建 `PromptDetailPage.jsx` 页面
