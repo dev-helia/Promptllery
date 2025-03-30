@@ -1,10 +1,13 @@
 
-# Promptllery | AI Prompt Curation Playground
-Chinese version: [点击这里查看中文文档 →](./README.zh.md)
+# Promptllery | Curated Playground for Prompt Engineers  
+*From zero to full-stack AI product – by Helia*
 
-**Promptllery** is a full-stack prompt curation playground built with React, TailwindCSS, Supabase, and OpenAI API.  
-It supports uploading, searching, liking, bookmarking, testing prompts, and managing user-authenticated content.  
-This project aims to grow into an open-source AI product prototype.
+Chinese version: [点击这里查看中文文档 →](./README.zh.md)
+**Promptllery** is a lightweight, full-featured AI prompt platform for creators and engineers.  
+It lets users **upload, test, and collect prompts** — with real-time AI integration and an intuitive interface.
+
+Built with **React + Tailwind + Supabase**, it showcases how modern frontend can pair with prompt engineering to prototype AI-native products.
+
 
 >Inspired by 神算乐园, Promptllery is designed to showcase and organize high-quality and interesting prompts in a usable, interactive way — combining prompt engineering with front-end product thinking.
 
