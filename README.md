@@ -8,7 +8,9 @@
   <img src="https://img.shields.io/github/actions/workflow/status/dev-helia/Promptllery/ci.yml?label=GitHub%20Actions&logo=github&style=flat-square" />
   <img src="https://img.shields.io/vercel/deploy-status?label=Vercel&logo=vercel&style=flat-square" />
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square" />
+
 </p>
+![CI](https://github.com/dev-helia/Promptllery/actions/workflows/ci.yml/badge.svg)
 
 # Promptllery | AI Prompt Curation Playground
 
