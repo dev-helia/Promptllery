@@ -2,10 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function PromptCard({
-  index,
-  title,
   prompt,
-  tag,
+  index,
   onTagClick,
   onCopy,
   isFavorited,
@@ -16,29 +14,26 @@ function PromptCard({
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(prompt);
+    navigator.clipboard.writeText(prompt.content);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
     onCopy?.();
   };
 
   return (
-    <Link
-      to={`/prompt/${index}`} // ✅ 根据索引跳转
-      className="block"
-    >
+    <Link to={`/prompt/${prompt.id}`} className="block">
       <div className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition flex flex-col justify-between">
         <div>
           <h2 className="text-lg font-semibold mb-2 text-purple-700">
-            {title}
+            {prompt.title}
           </h2>
 
           <p className="text-sm text-gray-700 whitespace-pre-line line-clamp-4">
-            {prompt}
+            {prompt.content}
           </p>
 
           <div className="mt-4 flex flex-wrap gap-2">
-            {tag.map((t, i) => (
+            {prompt.tags?.map((t, i) => (
               <span
                 key={i}
                 onClick={(e) => {

@@ -1,8 +1,7 @@
-// src/HomePage.jsx
 import PromptCard from "./components/PromptCard";
 import UploadForm from "./components/UploadForm";
 import { useState } from "react";
-import { Link } from "react-router-dom"; // ✅ 忘了引入 Link！
+import { Link } from "react-router-dom";
 import BrandHeader from "./components/BrandHeader";
 
 function HomePage({
@@ -19,27 +18,27 @@ function HomePage({
   likedIndexes,
   toggleLike,
   handleUpload,
-  username, // 👈 加上这一行！
-  showOnlyMine, // ✅ 👈 加这个！
-  setShowOnlyMine, // ✅ 👈 还有这个！
+  username,
+  showOnlyMine,
+  setShowOnlyMine,
 }) {
   const allTags = [
     "全部",
     ...new Set(
-      prompts
-        .flatMap((item) => item.tag) // 👈 tag 已经是数组了，直接展开！
-        .map((tag) => tag.trim())
+      prompts.flatMap((item) => item.tags || []).map((tag) => tag.trim())
     ),
   ];
 
   const filteredPrompts = prompts.filter((item, index) => {
     const matchSearch =
-      item.prompt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.tag.toLowerCase().includes(searchTerm.toLowerCase());
+      item.tags?.some((tag) =>
+        tag.toLowerCase().includes(searchTerm.toLowerCase())
+      );
 
     const matchTag =
-      selectedTag === "全部" || item.tag.some((t) => t.includes(selectedTag));
+      selectedTag === "全部" || item.tags?.some((t) => t.includes(selectedTag));
 
     const matchFavorite =
       !showOnlyFavorites || favoritedIndexes.includes(index);
@@ -48,6 +47,7 @@ function HomePage({
 
     return matchSearch && matchTag && matchFavorite && matchMine;
   });
+
   return (
     <div>
       <BrandHeader />
@@ -97,6 +97,7 @@ function HomePage({
           {showOnlyFavorites ? "💖 只看收藏" : "🤍 全部展示"}
         </button>
       </div>
+
       <button
         onClick={() => setShowOnlyMine(!showOnlyMine)}
         className="text-sm text-blue-500 hover:underline"
@@ -107,11 +108,9 @@ function HomePage({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredPrompts.map((item, index) => (
           <PromptCard
-            key={index}
+            key={item.id}
+            prompt={item}
             index={index}
-            title={item.title}
-            prompt={item.prompt}
-            tag={item.tag}
             likeCount={likes[index]}
             onTagClick={setSelectedTag}
             onCopy={() => alert("已复制 Prompt！")}

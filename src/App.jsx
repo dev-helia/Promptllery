@@ -9,12 +9,12 @@ import JsonViewer from "./components/JsonViewer";
 import RankingPage from "./components/RankingPage";
 import useSupabasePrompts from "./hooks/useSupabasePrompts";
 import usePromptActions from "./hooks/usePromptActions";
+import supabase from "./lib/supabaseClient";
 
 function App() {
   const [username, setUsername] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTag, setSelectedTag] = useState("全部");
-
   const [showOnlyMine, setShowOnlyMine] = useState(false);
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
 
@@ -59,10 +59,11 @@ function App() {
   useEffect(() => {
     localStorage.setItem("username", username);
   }, [username]);
+
   useEffect(() => {
     const getUser = async () => {
       const { data } = await supabase.auth.getUser();
-      if (data.user) {
+      if (data?.user) {
         setUsername(data.user.email);
       }
     };
@@ -70,15 +71,26 @@ function App() {
   }, []);
 
   const handleUpload = async (newPrompt) => {
-    const { title, content, tags } = newPrompt;
+    const {
+      title,
+      prompt,
+      tag, // 前端传的是 tag
+      source,
+      instructions,
+    } = newPrompt;
+
+    // ✅ 兜底：确保 tags 是有效的数组（不能为 null/undefined）
+    const tags = Array.isArray(tag) ? tag : [];
 
     const { error } = await supabase.from("prompts").insert([
       {
         title,
-        content,
-        tags,
+        content: prompt,
+        tags, // ✅ 改成保证是数组格式
         like_count: 0,
-        user_email: username, // 👈 加上用户邮箱
+        user_email: username,
+        source,
+        instructions,
       },
     ]);
 
@@ -88,6 +100,7 @@ function App() {
         .from("prompts")
         .select("*")
         .order("created_at", { ascending: false });
+
       if (data) {
         setPrompts(data);
         setLikes(data.map((p) => p.like_count || 0));
@@ -96,6 +109,7 @@ function App() {
       console.error("❌ 上传失败：", error.message);
     }
   };
+
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 p-10">
       <nav className="mb-6 flex gap-4 items-center">

@@ -21,6 +21,7 @@
 *From zero to full-stack AI product – by Helia(Hetao)*
 
 Chinese version: [点击这里查看中文文档 →](./README.zh.md)
+Tech blog: [Learning notes]()
 
 
 **Promptllery** is a lightweight, full-featured AI prompt platform for creators and engineers.  
@@ -146,6 +147,28 @@ promptllery/
 ```
 
 ---
+
+## 📸 Demo Preview
+Here’s a visual walkthrough of Promptllery’s core features:
+
+🟣 1. Upload a new Prompt
+<img src="/static/1.png" width="600"/> Users can submit prompts with title, description, category tags and sample input/output — powered by Supabase form handling.
+🔍 2. Search & Filter
+<img src="/static/2.png" width="600"/> Browse uploaded prompts using keyword search and multi-tag filtering. Discover prompts by theme, model or usage.
+❤️ 3. Like / Save a Prompt
+<img src="/static/3.png" width="600"/> Click heart to like prompts or bookmark for future access. Votes are stored in Supabase.
+🔬 4. Inline Prompt Testing
+<img src="/static/4.png" width="600"/> Each prompt supports input testing — enter your own message, choose GPT-3.5 or GPT-4 (if available), and get live AI feedback.
+📄 5. Prompt Detail Page
+<img src="/static/7.png" width="600"/> Full prompt preview with usage metadata, tags, and quick-copy feature.
+📤 6. Share via QR Code
+<img src="/static/8.png" width="600"/> Generate shareable links and QR codes for any prompt. Useful for mobile sharing or publishing on social platforms.
+🏆 7. Leaderboard
+<img src="/static/6.png" width="600"/> Ranking of most liked prompts — updated in real time to promote quality contributions.
+🧑‍💻 8. Auth Flow
+<img src="/static/5.png" width="600"/> Simple login/register flow using Supabase auth. Uploads are tied to user accounts.
+🎬 Live Demo Video
+<p align="center"> <video width="650" controls> <source src="/static/demo.mp4" type="video/mp4"> Your browser does not support the video tag. </video> </p>
 
 ## License
 

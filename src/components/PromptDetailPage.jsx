@@ -1,39 +1,66 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { sendPromptToOpenAI } from "../lib/api";
 import ModelSelector from "./ModelSelector";
-import { Link } from "react-router-dom"; // 别忘了加
-
+import supabase from "../lib/supabaseClient";
 import ShareToolbar from "./ShareToolbar";
+import { Link } from "react-router-dom";
 
 function PromptDetailPage() {
-  const { id } = useParams(); // ⬅ 从 URL 中获取 id
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [prompt, setPrompt] = useState(null);
   const [userInput, setUserInput] = useState("");
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
   const [model, setModel] = useState("gpt-3.5-turbo");
 
-  // 加载 prompt 内容（从本地缓存）
   useEffect(() => {
-    const storedPrompts = JSON.parse(localStorage.getItem("prompts") || "[]");
-    const selected = storedPrompts[parseInt(id)];
-    setPrompt(selected);
-  }, [id]);
+    const isValidUUID = (str) =>
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+        str
+      );
+
+    if (!isValidUUID(id)) {
+      console.error("❌ 非法 UUID:", id);
+      navigate("/");
+      return;
+    }
+
+    const fetchPrompt = async () => {
+      const { data, error } = await supabase
+        .from("prompts")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+      if (error) {
+        console.error("❌ 加载失败", error.message);
+      } else {
+        setPrompt(data);
+      }
+    };
+
+    fetchPrompt();
+  }, [id, navigate]);
 
   const handleTestPrompt = async () => {
+    if (!prompt) return;
+
     setLoading(true);
     setResponse("");
+    const fullPrompt = `${prompt.content}\n\n${userInput}`;
 
-    const fullPrompt = `${prompt.prompt}\n\n${userInput}`;
     try {
       const reply = await sendPromptToOpenAI(fullPrompt, model);
       setResponse(reply);
     } catch (err) {
       setResponse("请求出错：" + err.message);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
+
   if (!prompt) {
     return (
       <div className="p-6 text-center text-gray-500">
@@ -53,15 +80,13 @@ function PromptDetailPage() {
         🔍 查看 JSON 源文件
       </Link>
 
-      {/* 📋 Prompt 区域 + 复制按钮 */}
       <div className="relative mb-4">
         <div className="text-gray-700 whitespace-pre-wrap bg-gray-50 p-4 rounded-xl border">
-          {prompt.prompt}
+          {prompt.content}
         </div>
-
         <button
           onClick={() => {
-            navigator.clipboard.writeText(prompt.prompt);
+            navigator.clipboard.writeText(prompt.content);
             alert("✅ Prompt 已复制到剪贴板！");
           }}
           className="absolute top-2 right-2 text-sm text-purple-600 hover:underline"
@@ -70,9 +95,8 @@ function PromptDetailPage() {
         </button>
       </div>
 
-      {/* 🏷️ 标签 */}
       <div className="flex flex-wrap gap-2 mb-4">
-        {prompt.tag?.map((t, i) => (
+        {prompt.tags?.map((t, i) => (
           <span
             key={i}
             className="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full"
@@ -82,13 +106,11 @@ function PromptDetailPage() {
         ))}
       </div>
 
-      {/* 📌 来源 */}
       <div className="mb-4">
         <h2 className="text-sm font-semibold text-gray-500">📌 来源</h2>
         <p className="text-gray-700">{prompt.source || "暂无来源信息"}</p>
       </div>
 
-      {/* 📖 使用说明 */}
       <div className="mb-4">
         <h2 className="text-sm font-semibold text-gray-500">📖 使用说明</h2>
         <p className="text-gray-700 whitespace-pre-wrap">
@@ -96,15 +118,13 @@ function PromptDetailPage() {
         </p>
       </div>
 
-      {/* 💡 示例输出 */}
       <div className="mb-4">
         <h2 className="text-sm font-semibold text-gray-500">💡 示例输出</h2>
         <p className="text-gray-700 whitespace-pre-wrap">
-          {prompt.exampleOutput || "暂无示例"}
+          {prompt.example_output || "暂无示例"}
         </p>
       </div>
 
-      {/* ✅ 模型选择滑块 */}
       <div className="mb-4">
         <label className="block font-medium text-gray-700 mb-1">
           🧠 选择 GPT 模型：
@@ -112,7 +132,6 @@ function PromptDetailPage() {
         <ModelSelector model={model} setModel={setModel} />
       </div>
 
-      {/* 🧪 Prompt 测试区 */}
       <div className="mt-6 space-y-4">
         <label className="block font-medium text-gray-700">
           🧪 输入你的上下文（可选）：

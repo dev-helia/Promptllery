@@ -8,18 +8,20 @@ function LoginPage({ setUsername }) {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    const { user, error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
     if (error) {
       alert("❌ 登录失败：" + error.message);
-    } else {
-      console.log("✅ 登录成功", user);
-      setUsername(user.user.email); // 👈 用邮箱作为用户名
-      localStorage.setItem("username", user.user.email); // 持久化
+    } else if (data?.user) {
+      console.log("✅ 登录成功", data.user);
+      setUsername(data.user.email); // 👈 用邮箱作为用户名
+      localStorage.setItem("username", data.user.email); // 持久化
       navigate("/");
+    } else {
+      alert("⚠️ 登录异常：未能获取用户信息");
     }
   };
 
