@@ -21,7 +21,8 @@
 *From zero to full-stack AI product – by Helia(Hetao)*
 
 Chinese version: [点击这里查看中文文档 →](./README.zh.md)
-Tech blog: [Learning notes]()
+
+Tech blog: [Learning notes](https://dev-helia.github.io/Tech-Blog-Website/posts/promptllery/)
 
 
 **Promptllery** is a lightweight, full-featured AI prompt platform for creators and engineers.  
