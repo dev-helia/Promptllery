@@ -182,8 +182,9 @@ Here’s a visual walkthrough of Promptllery’s core features:
 8. Auth Flow
 <img src="/public/static/5.png" width="600"/> Simple login/register flow using Supabase auth. Uploads are tied to user accounts.
 
+9. demo
 <video width="650" controls>
-  <source src="./public/static/demo.mp4" type="video/mp4">
+  <source src="/public/static/demo.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
