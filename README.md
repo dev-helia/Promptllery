@@ -187,7 +187,7 @@ Here’s a visual walkthrough of Promptllery’s core features:
   <source src="/public/static/demo.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-
+[Watch full demo video](/public/static/demo.mp4)
 
 
 ## License
