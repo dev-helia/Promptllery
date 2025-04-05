@@ -19,7 +19,8 @@
 
 
 *From zero to full-stack AI product – by Helia(Hetao)*
-Currently this data space is not open :/ .
+
+*Currently this data space is not open :/ . *
 
 Chinese version: [点击这里查看中文文档 → ](./README.zh.md)
 
