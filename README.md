@@ -154,6 +154,9 @@ promptllery/
 ---
 
 ## Demo Preview
+
+[video demo](https://drive.google.com/file/d/11GxgzsGqmQ3IVo0-3_YomUIFvHP9mcL6/view?usp=drive_link)
+
 Here’s a visual walkthrough of Promptllery’s core features:
 
 1. Upload a new Prompt
