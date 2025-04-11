@@ -155,7 +155,7 @@ promptllery/
 
 ## Demo Preview
 
-[video demo](https://drive.google.com/file/d/11GxgzsGqmQ3IVo0-3_YomUIFvHP9mcL6/view?usp=drive_link](https://youtu.be/JtV62_bn-bA?si=LuRTUHlxJUxVLkDl)
+[video demo](https://youtu.be/JtV62_bn-bA?si=LuRTUHlxJUxVLkDl)
 
 Here’s a visual walkthrough of Promptllery’s core features:
 
