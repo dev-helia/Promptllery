@@ -52,7 +52,8 @@ Simple login/register flow using Supabase auth. Uploads are tied to user account
 
 - This project has the front end as the protagonist, the back end is the hosting service provided by Supabase, and the database is PostgreSQL. I don't need to maintain the server logic Maintain server logic, at this point, nor do I have the traditional MVC controller structure, but use React to manage state and Supabase to manage data. It is not a "traditional three-layer architecture", but a lightweight architecture model with "front-end dominance + BaaS support".
 Now let’s layer:
-  - ✅ 1️⃣ User Interface Layer (User Interface)
+
+   - ✅ 1️⃣ User Interface Layer (User Interface)
    React: Component-based construction of UI (PromptCard, upload form, display page, etc.)
    JSX: HTML in JS, used to quickly write page structure
    Tailwind CSS: Quickly design beautiful UI (like Prompt cards, search bar)
