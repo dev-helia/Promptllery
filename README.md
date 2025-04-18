@@ -16,7 +16,7 @@
 ![CI](https://github.com/dev-helia/Promptllery/actions/workflows/ci.yml/badge.svg)
 ![npm package](https://img.shields.io/badge/npm-promptllery-blue)
 [![codecov](https://codecov.io/gh/dev-helia/Promptllery/branch/main/graph/badge.svg)](https://codecov.io/gh/dev-helia/Promptllery)
-<img width="307" alt="image" src="https://github.com/user-attachments/assets/53b6832a-a687-41c2-b9c3-fc9c04741574" />
+
 
 
 *From zero to full-stack AI product – by Helia(Hetao)*
@@ -46,7 +46,7 @@ Built with **React + Tailwind + Supabase**, it showcases how modern frontend can
 - **Backend**: Supabase (PostgreSQL + Auth)  
 - **AI API**: OpenAI Completion API  
 - **Deployment**: Netlify / Vercel
-
+<img width="307" alt="image" src="https://github.com/user-attachments/assets/53b6832a-a687-41c2-b9c3-fc9c04741574" />
 ---
 
 ## Features
