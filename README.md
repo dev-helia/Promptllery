@@ -205,39 +205,7 @@ Ranking of most liked prompts — updated in real time to promote quality contri
 15. Auth Flow
 <img src="/public/static/5.png" width="600"/>
 
-Simple login/register flow using Supabase auth. Uploads are tied to user accounts.
 
-This project has the front end as the protagonist, the back end is the hosting service provided by Supabase, and the database is PostgreSQL. I don't need to maintain the server logic Maintain server logic, at this point, nor do I have the traditional MVC controller structure, but use React to manage state and Supabase to manage data. It is not a "traditional three-layer architecture", but a lightweight architecture model with "front-end dominance + BaaS support".
-Now let’s layer:
-
-✅ 1️⃣ User Interface Layer (User Interface)
- React: Component-based construction of UI (PromptCard, upload form, display page, etc.)
- JSX: HTML in JS, used to quickly write page structure
- Tailwind CSS: Quickly design beautiful UI (like Prompt cards, search bar)
- Vite: Project launcher and packaging tool to enhance development experience
- 👉 This layer can be painted as the "main stage", and all user interactions occur from here!
-
-✅ 2️⃣ State Management & Functional Logic Layer (Frontend Logic Layer)
- useState / useEffect: manage the status of likes, collections, searches, uploads, etc.
- OpenAI API: Interface calls to the model conversation when testing prompt
- Clipboard & QR lib: Implementation of sharing functions
- 👉 This layer is the "logical brain" behind the UI - not the traditional backend, but the front-end component logic and external service collaboration
-
-✅ 3️⃣ Backend Service Layer (BaaS/API Layer)
- Supabase:
-     Provide database connection (PostgreSQL)
-     Provide Authentication (Auth)
-     Provide REST API calls (you use .insert(), .update(), etc.)
- 👉 This layer is a "transparent" hosting layer, I don't have to write code, but it takes up most of the responsibilities of the traditional backend!
-
-✅ 4️⃣ Database Layer
- PostgreSQL: Hosted by Supabase, stores all Prompt data, user information, like relationships, etc.
-
-✅ 5️⃣ Development Tools (Dev Tools)
- Jest + React Testing Library: You use to write component tests
- Vercel: One-click deployment, front-end code hosting
- 👉 This layer is a tool that "assists you in development and online.
-
 
 
 
