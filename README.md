@@ -58,7 +58,7 @@ Now let’s layer:
    JSX: HTML in JS, used to quickly write page structure
    Tailwind CSS: Quickly design beautiful UI (like Prompt cards, search bar)
    Vite: Project launcher and packaging tool to enhance development experience
-   👉 This layer can be painted as the "main stage", and all user interactions occur from here!
+   👉 This layer can be painted as the "main stage", and all user interactions occur from here
 
   - ✅ 2️⃣ State Management & Functional Logic Layer (Frontend Logic Layer)
    useState / useEffect: manage the status of likes, collections, searches, uploads, etc.
